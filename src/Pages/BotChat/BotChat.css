@@ -1,0 +1,53 @@
+form {
+	display: flex;
+	justify-content: center;
+}
+
+.message-container {
+	/* display: block; */
+	/* height: 100vh; */
+	/* overflow: auto;
+	margin: 0 20px 0px 20px; */
+	position: relative;
+	min-height: 300px;
+}
+
+.message-main {
+	overflow: auto;
+	margin: 0 20px 0px 20px;
+	max-height: 300px;
+}
+
+.app-form {
+	padding: 20px;
+	/* position: fixed; */
+	/* bottom: 20px; */
+	z-index: 1;
+	background-color: #e9e9eb;
+	/* width: 100%; */
+	margin: 20px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -100px;
+}
+
+.app-formControl {
+	display: flex !important;
+	flex-direction: row !important;
+}
+
+.app-input {
+	flex: 1;
+}
+
+.app-iconButton {
+	flex: 0;
+}
+.button {
+	width: 100%;
+	padding: 15px 20px;
+	border: none;
+	cursor: pointer;
+	font-size: 15px;
+}
