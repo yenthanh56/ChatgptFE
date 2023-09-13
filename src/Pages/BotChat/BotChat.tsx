@@ -55,7 +55,7 @@ export const BotChat = () => {
 		setPrompt("");
 		setisLoading(true);
 
-		await fetch("https://chatgpt-be.vercel.app/v1/bot", {
+		await fetch("https://chatgpt-be.vercel.app/v1/bot/", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
