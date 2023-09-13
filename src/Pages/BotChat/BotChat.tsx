@@ -48,33 +48,31 @@ export const BotChat = () => {
 	const sendPrompt = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		if (messages) {
-			setMessages((prevMessages) => [
-				...prevMessages,
-				{ id: generateUID(), name: "me", text: prompt },
-			]);
-			setPrompt("");
-			setisLoading(true);
+		setMessages((prevMessages) => [
+			...prevMessages,
+			{ id: generateUID(), name: "me", text: prompt },
+		]);
+		setPrompt("");
+		setisLoading(true);
 
-			await fetch("https://chatgpt-be.vercel.app/v1/bot", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ prompt: prompt }),
-			})
-				.then((res) => res.json())
-				.then((data) =>
-					setMessages((prevMessages) => [
-						...prevMessages,
-						{
-							id: generateUID(),
-							name: "Bot",
-							text: data.bot,
-						},
-					])
-				);
-		}
+		await fetch("https://chatgpt-be.vercel.app/v1/bot", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ prompt: prompt }),
+		})
+			.then((res) => res.json())
+			.then((data) =>
+				setMessages((prevMessages) => [
+					...prevMessages,
+					{
+						id: generateUID(),
+						name: "Bot",
+						text: data.bot,
+					},
+				])
+			);
 
 		setisLoading(false);
 	};
@@ -138,7 +136,7 @@ export const BotChat = () => {
 					/>
 					<button
 						style={{ border: "none" }}
-						disabled={messages ? false : true}
+						disabled={prompt && messages ? false : true}
 					>
 						<IconButton
 							type="button"
