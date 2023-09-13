@@ -9,13 +9,13 @@ form {
 	/* overflow: auto;
 	margin: 0 20px 0px 20px; */
 	position: relative;
-	min-height: 300px;
+	min-height: 500px;
 }
 
 .message-main {
 	overflow: auto;
 	margin: 0 20px 0px 20px;
-	max-height: 300px;
+	max-height: 500px;
 }
 
 .app-form {

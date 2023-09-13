@@ -55,7 +55,7 @@ export const BotChat = () => {
 		setPrompt("");
 		setisLoading(true);
 
-		await fetch("https://chatgpt-be.vercel.app/v1/bot/", {
+		await fetch("https://chatgpt-be.vercel.app/v1/bot", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -81,8 +81,7 @@ export const BotChat = () => {
 		bottomRef.current?.scrollIntoView({ behavior: "smooth" });
 	}, [messages]);
 	useEffect(() => {
-		if (!data?.user?.name) {
-			window.location.reload();
+		if (!data?.user?.name.toUpperCase()) {
 			navigate("/");
 		}
 	}, []);
@@ -99,7 +98,7 @@ export const BotChat = () => {
 					alignItems: "center",
 				}}
 			>
-				<h1>{data?.user?.name}</h1>
+				<h1>{data?.user?.name.toUpperCase()}</h1>
 				<Button
 					variant="contained"
 					onClick={() => logout(dispatch, navigate)}

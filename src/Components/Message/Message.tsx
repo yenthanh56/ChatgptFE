@@ -20,11 +20,11 @@ export const Message = (props: IProps) => {
 			<div className="message-inline">
 				<Avatar
 					className="message-avatar"
-					alt={isMe ? (data?.user?.name).toUpperCase() : "Bot"}
+					alt={isMe ? data?.user?.name?.toUpperCase() : "Bot"}
 					src={
 						isMe
-							? (data?.user?.name).toUpperCase()
-							: "Bot".toUpperCase()
+							? data?.user?.name?.toUpperCase()
+							: "Bot"?.toUpperCase()
 					}
 				/>
 				<Card className={isMe ? "message-myCard" : "message-heraCard"}>
