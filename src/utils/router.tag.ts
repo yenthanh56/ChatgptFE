@@ -1,4 +1,4 @@
-import { BotChat, Home, Login, Register } from "../Pages";
+import { BotChat, Home, Login, PageNotFound, Register } from "../Pages";
 
 export const publicRouters = [
 	{ path: "/", component: Home },
@@ -6,4 +6,6 @@ export const publicRouters = [
 	// user
 	{ path: "/login", component: Login, layout: null },
 	{ path: "/register", component: Register, layout: null },
+	// page *
+	{ path: "*", component: PageNotFound },
 ];

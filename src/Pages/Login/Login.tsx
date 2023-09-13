@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import Typography from "@mui/material/Typography";
 import { login } from "../../store/authSlice";
 import { useAppDispatch } from "../../store/store";
@@ -6,16 +6,20 @@ import { Paper } from "@mui/material";
 import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
 
+import { IAuthLogin } from "../../types/authLogin.type";
 export const Login = () => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	const passRef = useRef<HTMLInputElement>(null);
 	const usernameRef = useRef<HTMLInputElement>(null);
-	const initialState = {
+	const [typePass, setTypePass] = useState(false);
+	const submitRef = useRef<HTMLInputElement>(null);
+
+	const initialState: IAuthLogin = {
 		name: "",
 		password: "",
 	};
-	const [userLogin, setUserLogin] = useState(initialState);
+	const [userLogin, setUserLogin] = useState<IAuthLogin>(initialState);
 	const { name, password } = userLogin;
 	const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setUserLogin({ ...userLogin, [e.target.name]: e.target.value });
@@ -27,8 +31,17 @@ export const Login = () => {
 	// 		return loginUser(body, token);
 	// 	},
 	// });
-
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	useEffect(() => {
+		let timeId = setInterval(() => {
+			if (name && password) {
+				submitRef.current!.disabled = false;
+			}
+		}, 5000);
+		return () => {
+			clearInterval(timeId);
+		};
+	}, [submitRef.current, name && password]);
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		// react-query
 		// mutateAddStudent.mutate(userLogin, {
@@ -49,8 +62,8 @@ export const Login = () => {
 		if (!name || name.length < 6) {
 			usernameRef.current?.focus();
 		}
-
-		login(userLogin, dispatch, navigate);
+		submitRef.current!.disabled = true;
+		await login(userLogin, dispatch, navigate);
 	};
 
 	useEffect(() => {
@@ -91,19 +104,32 @@ export const Login = () => {
 						onChange={handleChangeInput}
 						className="input"
 					/>
+					<div className="password">
+						<input
+							type={`${typePass ? "text" : "password"}`}
+							name="password"
+							id="password"
+							placeholder="Mật khẩu"
+							value={password}
+							ref={passRef}
+							onChange={handleChangeInput}
+							className={`input`}
+						/>
+						<small
+							onClick={() => setTypePass(!typePass)}
+							className={`${userLogin.password ? "block" : ""}`}
+						>
+							{typePass ? "Ẩn" : "Hiện"}
+						</small>
+					</div>
 
 					<input
-						type="password"
-						name="password"
-						id="password"
-						placeholder="Mật khẩu"
-						value={password}
-						ref={passRef}
-						onChange={handleChangeInput}
-						className="input"
+						type="submit"
+						value="Đăng nhập"
+						ref={submitRef}
+						disabled={name && password ? false : true}
+						className={`button`}
 					/>
-
-					<input type="submit" value="Đăng nhập" className="button" />
 					<Link to={"/register"}>Đăng ký tài khoản</Link>
 				</Paper>
 			</form>

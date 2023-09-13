@@ -4,7 +4,7 @@ class Http {
 	instance: AxiosInstance;
 	constructor() {
 		this.instance = axios.create({
-			baseURL: "http://localhost:3000/",
+			baseURL: "https://chatgpt-be.vercel.app/",
 			timeout: 10000,
 			headers: {
 				"Content-Type": "application/json",

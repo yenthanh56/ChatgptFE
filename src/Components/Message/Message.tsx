@@ -21,7 +21,11 @@ export const Message = (props: IProps) => {
 				<Avatar
 					className="message-avatar"
 					alt={isMe ? (data?.user?.name).toUpperCase() : "Bot"}
-					src={isMe ? (data?.user?.name).toUpperCase() : "./hera.jpg"}
+					src={
+						isMe
+							? (data?.user?.name).toUpperCase()
+							: "Bot".toUpperCase()
+					}
 				/>
 				<Card className={isMe ? "message-myCard" : "message-heraCard"}>
 					<CardContent className="message-cardContent">

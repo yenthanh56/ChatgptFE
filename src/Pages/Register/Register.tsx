@@ -10,6 +10,9 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 export const Register = () => {
 	const navagate = useNavigate();
+	const [typePass, setTypePass] = useState(false);
+	const [typeCFPass, setTypeCFPass] = useState(false);
+	const submitRef = useRef<HTMLButtonElement>(null);
 	const usernameRef = useRef<HTMLInputElement>(null);
 	const initialState: IAuthRegister = {
 		name: "",
@@ -33,6 +36,7 @@ export const Register = () => {
 		e.preventDefault();
 		mutateAddStudent.mutate(userRegis, {
 			onSuccess: (data) => {
+				submitRef.current!.disabled = true;
 				toast.success(`${data.data.msg}`);
 				navagate("/");
 			},
@@ -42,9 +46,11 @@ export const Register = () => {
 					usernameRef.current?.focus();
 				}
 				if (data && data.response.status === 400) {
+					submitRef.current!.disabled = true;
 					toast.error(`${data.response.data.msg}`);
 				}
 				if (data && data.response.status === 500) {
+					submitRef.current!.disabled = true;
 					toast.error(`${data.response.statusText}`);
 				}
 			},
@@ -54,6 +60,17 @@ export const Register = () => {
 	useEffect(() => {
 		usernameRef.current?.focus();
 	}, []);
+
+	useEffect(() => {
+		let timeId = setInterval(() => {
+			if (name && password) {
+				submitRef.current!.disabled = false;
+			}
+		}, 5000);
+		return () => {
+			clearInterval(timeId);
+		};
+	}, [submitRef.current, name && password]);
 
 	return (
 		<>
@@ -99,28 +116,54 @@ export const Register = () => {
 						value={account}
 						onChange={handleChangeInput}
 					/>
+					<div className="password">
+						<input
+							type={typePass ? "text" : "password"}
+							name="password"
+							id="password"
+							placeholder="Mật khẩu"
+							className="input"
+							value={password}
+							onChange={handleChangeInput}
+						/>
+						<small
+							onClick={() => setTypePass(!typePass)}
+							className={`${userRegis.password ? "block" : ""}`}
+						>
+							{typePass ? "Ẩn" : "Hiện"}
+						</small>
+					</div>
+					<div className="cf_password">
+						<input
+							type={typeCFPass ? "text" : "password"}
+							name="cf_password"
+							id="cf_password"
+							placeholder="Xác nhận lại mật khẩu"
+							className="input"
+							value={cf_password}
+							onChange={handleChangeInput}
+						/>
+						<small
+							onClick={() => setTypeCFPass(!typeCFPass)}
+							className={`${
+								userRegis.cf_password ? "block" : ""
+							}`}
+						>
+							{typeCFPass ? "Ẩn" : "Hiện"}
+						</small>
+					</div>
 
-					<input
-						type="password"
-						name="password"
-						id="password"
-						placeholder="Mật khẩu"
-						className="input"
-						value={password}
-						onChange={handleChangeInput}
-					/>
-
-					<input
-						type="password"
-						name="cf_password"
-						id="cf_password"
-						placeholder="Xác nhận lại mật khẩu"
-						className="input"
-						value={cf_password}
-						onChange={handleChangeInput}
-					/>
-
-					<button className="button">Đăng nhập</button>
+					<button
+						className="button"
+						disabled={
+							name && password && account && cf_password
+								? false
+								: true
+						}
+						ref={submitRef}
+					>
+						Đăng Ký
+					</button>
 					<Link to={"/"}>Đăng nhập tài khoản</Link>
 				</Paper>
 			</form>

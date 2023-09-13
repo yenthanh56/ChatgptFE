@@ -4,13 +4,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 import SendIcon from "@mui/icons-material/Send";
 import { Message } from "../../Components";
 import { generateUID } from "../../utils/generateId";
-import {
-	MutationCache,
-	QueryClient,
-	useMutation,
-	useQueries,
-	useQueryClient,
-} from "@tanstack/react-query";
+
 import { loginUser } from "../../apis/FetchApi";
 import { IAuthLogin, IAuthLogin1 } from "../../types/authLogin.type";
 import { useIsFetching } from "@tanstack/react-query";
@@ -21,6 +15,7 @@ import { logout } from "../../store/authSlice";
 import { IUser } from "../../types/users.type";
 import "./BotChat.css";
 import Button from "@mui/material/Button";
+import axios from "axios";
 interface IProps {
 	setUser: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -60,7 +55,7 @@ export const BotChat = () => {
 		setPrompt("");
 		setisLoading(true);
 
-		await fetch("http://localhost:3000/v1/bot", {
+		await fetch("https://chatgpt-be.vercel.app/v1/bot", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -85,6 +80,12 @@ export const BotChat = () => {
 	useEffect(() => {
 		bottomRef.current?.scrollIntoView({ behavior: "smooth" });
 	}, [messages]);
+	useEffect(() => {
+		if (!data?.user?.name) {
+			window.location.reload();
+			navigate("/");
+		}
+	}, []);
 	return (
 		<div
 			style={{

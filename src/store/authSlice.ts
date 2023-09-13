@@ -27,6 +27,8 @@ const authSlice = createSlice({
 	reducers: {
 		setLoading: (state) => {
 			state.login.loading = true;
+			state.login.error = false;
+			state.login.success = false;
 		},
 		setLogin: (state, action) => {
 			state.login.currentUser = action.payload;
@@ -34,12 +36,12 @@ const authSlice = createSlice({
 			state.login.success = true;
 		},
 		setError: (state) => {
-			state.login.loading = false;
 			state.login.error = true;
+			state.login.loading = false;
+			state.login.success = false;
 		},
 		setLogout: (state) => {
 			state.login.currentUser = null;
-
 			state.login.loading = false;
 			state.login.error = false;
 			state.login.success = false;
@@ -59,7 +61,7 @@ export const login = async (body: IAuthLogin, dispatch: any, navigate: any) => {
 		toast.success(res.data.msg);
 		navigate("/botchat");
 	} catch (error: any) {
-		console.log(error);
+		dispatch(setError());
 		if (error && error.response.status === 400) {
 			toast.error(`${error.response.data.msg}`);
 			return;
@@ -72,10 +74,10 @@ export const login = async (body: IAuthLogin, dispatch: any, navigate: any) => {
 			toast.error(`${error.response.statusText}`);
 			return;
 		}
-		dispatch(setError());
 	}
 };
 export const logout = async (dispatch: any, navigate: any) => {
+	dispatch(setLoading());
 	try {
 		const res = await logoutUser();
 		dispatch(setLogout(res.data.msg));
