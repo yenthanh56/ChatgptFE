@@ -4,21 +4,13 @@ import PulseLoader from "react-spinners/PulseLoader";
 import SendIcon from "@mui/icons-material/Send";
 import { Message } from "../../Components";
 import { generateUID } from "../../utils/generateId";
-
-import { loginUser } from "../../apis/FetchApi";
-import { IAuthLogin, IAuthLogin1 } from "../../types/authLogin.type";
-import { useIsFetching } from "@tanstack/react-query";
 import { RootState, useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../store/authSlice";
-import { IUser } from "../../types/users.type";
 import "./BotChat.css";
 import Button from "@mui/material/Button";
-import axios from "axios";
-interface IProps {
-	setUser: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import { toast } from "react-toastify";
 
 export const BotChat = () => {
 	const dispatch = useAppDispatch();
@@ -26,6 +18,7 @@ export const BotChat = () => {
 	const data: any = useSelector(
 		(state: RootState) => state.auth.login.currentUser
 	);
+	const inputRef = useRef<HTMLInputElement>(null);
 
 	const [prompt, setPrompt] = useState("");
 
@@ -78,8 +71,13 @@ export const BotChat = () => {
 	};
 
 	useEffect(() => {
+		inputRef.current?.focus();
+	});
+
+	useEffect(() => {
 		bottomRef.current?.scrollIntoView({ behavior: "smooth" });
 	}, [messages]);
+
 	useEffect(() => {
 		if (!data?.user?.name.toUpperCase()) {
 			navigate("/");
@@ -128,9 +126,10 @@ export const BotChat = () => {
 				</div>
 				<form className="app-form" onSubmit={sendPrompt}>
 					<FormControl className="app-formControl"></FormControl>
-					<Input
+					<input
 						className="app-input"
 						placeholder="Hãy hỏi mình bất kì điều gì!"
+						ref={inputRef}
 						value={prompt}
 						onChange={(e) => setPrompt(e.target.value)}
 					/>

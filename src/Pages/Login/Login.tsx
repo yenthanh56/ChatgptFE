@@ -1,11 +1,10 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import { login } from "../../store/authSlice";
 import { useAppDispatch } from "../../store/store";
 import { Paper } from "@mui/material";
 import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
-
 import { IAuthLogin } from "../../types/authLogin.type";
 export const Login = () => {
 	const dispatch = useAppDispatch();
