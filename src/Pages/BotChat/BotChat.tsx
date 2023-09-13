@@ -134,14 +134,15 @@ export const BotChat = () => {
 						value={prompt}
 						onChange={(e) => setPrompt(e.target.value)}
 					/>
-
-					<IconButton
-						type="button"
-						color="primary"
-						className="app-iconButton"
-					>
-						<SendIcon />
-					</IconButton>
+					<button>
+						<IconButton
+							type="button"
+							color="primary"
+							className="app-iconButton"
+						>
+							<SendIcon />
+						</IconButton>
+					</button>
 				</form>
 			</div>
 
