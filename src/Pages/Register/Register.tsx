@@ -64,14 +64,14 @@ export const Register = () => {
 
 	useEffect(() => {
 		let timeId = setInterval(() => {
-			if (name && password) {
+			if (name && password && account && cf_password) {
 				submitRef.current!.disabled = false;
 			}
 		}, 5000);
 		return () => {
 			clearInterval(timeId);
 		};
-	}, [submitRef.current, name && password]);
+	}, [submitRef.current, name && password && account && cf_password]);
 
 	return (
 		<>
