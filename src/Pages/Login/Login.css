@@ -26,3 +26,7 @@ small {
 .block {
 	display: block;
 }
+
+.registerclick:hover {
+	text-decoration: underline;
+}

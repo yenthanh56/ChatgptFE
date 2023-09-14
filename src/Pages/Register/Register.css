@@ -34,3 +34,6 @@ small {
 .block {
 	display: block;
 }
+.loginclick:hover {
+	text-decoration: underline;
+}

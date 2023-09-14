@@ -24,6 +24,7 @@
 .message-typography {
 	padding: 0px 25px 0px 25px;
 	text-align: center;
+	white-space: pre-wrap;
 }
 .message-user {
 	margin-left: auto;
@@ -46,8 +47,18 @@
 	padding: 20px !important;
 }
 .css-1q2tlgs-MuiTypography-root {
-	line-height: 0 !important;
+	line-height: 0;
 }
 .css-1qw96cp:last-child {
 	padding-bottom: 0;
+}
+@media only screen and (max-width: 600px) {
+	.message-typography {
+		font-size: 10px !important;
+	}
+}
+@media only screen and (min-width: 768px) {
+	.message-typography {
+		padding: 0;
+	}
 }

@@ -84,18 +84,8 @@ export const BotChat = () => {
 		}
 	}, []);
 	return (
-		<div
-			style={{
-				padding: "0 40px 40px 40px",
-			}}
-		>
-			<div
-				style={{
-					display: "flex",
-					justifyContent: "space-between",
-					alignItems: "center",
-				}}
-			>
+		<div className="wapperbot">
+			<div className="user">
 				<h1>{data?.user?.name.toUpperCase()}</h1>
 				<Button
 					variant="contained"

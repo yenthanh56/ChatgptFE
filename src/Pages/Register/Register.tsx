@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
+import { Loading } from "../../Alert";
 export const Register = () => {
 	const navagate = useNavigate();
 	const [typePass, setTypePass] = useState(false);
@@ -74,6 +75,7 @@ export const Register = () => {
 
 	return (
 		<>
+			{mutateAddStudent.isLoading && <Loading />}
 			<form
 				onSubmit={handleSubmit}
 				style={{
@@ -164,7 +166,9 @@ export const Register = () => {
 					>
 						Đăng Ký
 					</button>
-					<Link to={"/"}>Đăng nhập tài khoản</Link>
+					<Link to={"/"} className="loginclick">
+						Đăng nhập tài khoản
+					</Link>
 				</Paper>
 			</form>
 		</>

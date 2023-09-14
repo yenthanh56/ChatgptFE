@@ -129,7 +129,7 @@ export const Login = () => {
 						disabled={name && password ? false : true}
 						className={`button`}
 					/>
-					<Link to={"/register"}>Đăng ký tài khoản</Link>
+					<Link to={"/register"} className="registerclick">Đăng ký tài khoản</Link>
 				</Paper>
 			</form>
 		</>
