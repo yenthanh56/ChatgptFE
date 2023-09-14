@@ -1,11 +1,23 @@
-.input {
+/* .input {
+	width: 100%;
+	padding: 15px 20px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 15px;
+} */
+.buttonlogin {
 	width: 100%;
 	padding: 15px 20px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	font-size: 15px;
 }
-
+.pointerlogin {
+	cursor: pointer;
+}
+.pointerlogininit {
+	cursor: inherit;
+}
 textarea:focus,
 input:focus {
 	outline: none;

@@ -10,12 +10,18 @@ textarea:focus,
 input:focus {
 	outline: none;
 }
-.button {
+.buttonregister {
 	width: 100%;
 	padding: 15px 20px;
 	border: none;
-	cursor: pointer;
+	/* cursor: pointer; */
 	font-size: 15px;
+}
+.pointerregister {
+	cursor: pointer;
+}
+.pointernot {
+	cursor: not-allowed;
 }
 .password,
 .cf_password {

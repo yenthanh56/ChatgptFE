@@ -43,6 +43,8 @@ export const Register = () => {
 			},
 
 			onError: (data: any) => {
+				submitRef.current!.style.cursor = "initial";
+
 				if (!name) {
 					usernameRef.current?.focus();
 				}
@@ -66,13 +68,20 @@ export const Register = () => {
 		let timeId = setInterval(() => {
 			if (name && password && account && cf_password) {
 				submitRef.current!.disabled = false;
+				submitRef.current!.style.cursor = "pointer";
 			}
 		}, 5000);
 		return () => {
 			clearInterval(timeId);
 		};
 	}, [submitRef.current, name && password && account && cf_password]);
-
+	useEffect(() => {
+		if (name && password && account && cf_password) {
+			submitRef.current!.style.cursor = "pointer";
+		} else {
+			submitRef.current!.style.cursor = "initial";
+		}
+	}, [name && password && account && cf_password]);
 	return (
 		<>
 			{mutateAddStudent.isLoading && <Loading />}
@@ -156,7 +165,11 @@ export const Register = () => {
 					</div>
 
 					<button
-						className="button"
+						className={`buttonregister ${
+							name && password && account && cf_password
+								? "pointerregister"
+								: ""
+						}`}
 						disabled={
 							name && password && account && cf_password
 								? false

@@ -85,10 +85,9 @@ form {
 .app-iconButton {
 	flex: 0;
 }
-.button {
-	width: 100%;
-	padding: 15px 20px;
-	border: none;
-	cursor: pointer;
-	font-size: 15px;
+.buttonlogout {
+	padding: 15px 20px !important;
+	border: none !important;
+	/* cursor: pointer; */
+	font-size: 15px !important;
 }

@@ -34,12 +34,22 @@ export const Login = () => {
 		let timeId = setInterval(() => {
 			if (name && password) {
 				submitRef.current!.disabled = false;
+				submitRef.current!.style.cursor = "pointer";
 			}
 		}, 5000);
 		return () => {
 			clearInterval(timeId);
 		};
 	}, [submitRef.current, name && password]);
+
+	useEffect(() => {
+		if (name && password) {
+			submitRef.current!.style.cursor = "pointer";
+		} else {
+			submitRef.current!.style.cursor = "initial";
+		}
+	}, [name && password]);
+
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		// react-query
@@ -58,10 +68,13 @@ export const Login = () => {
 		// 		}
 		// 	},
 		// });
+
 		if (!name || name.length < 6) {
 			usernameRef.current?.focus();
 		}
 		submitRef.current!.disabled = true;
+		submitRef.current!.style.cursor = "initial";
+
 		await login(userLogin, dispatch, navigate);
 	};
 
@@ -127,9 +140,15 @@ export const Login = () => {
 						value="Đăng nhập"
 						ref={submitRef}
 						disabled={name && password ? false : true}
-						className={`button`}
+						className={`buttonlogin ${
+							name && password
+								? "pointerlogin"
+								: "pointerlogininit"
+						}`}
 					/>
-					<Link to={"/register"} className="registerclick">Đăng ký tài khoản</Link>
+					<Link to={"/register"} className="registerclick">
+						Đăng ký tài khoản
+					</Link>
 				</Paper>
 			</form>
 		</>

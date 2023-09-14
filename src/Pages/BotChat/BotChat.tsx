@@ -90,6 +90,7 @@ export const BotChat = () => {
 				<Button
 					variant="contained"
 					onClick={() => logout(dispatch, navigate)}
+					className="buttonlogout"
 				>
 					Đăng xuất
 				</Button>
@@ -126,6 +127,7 @@ export const BotChat = () => {
 					<button
 						style={{ border: "none" }}
 						disabled={prompt && messages ? false : true}
+						className="buttonInput"
 					>
 						<IconButton
 							type="button"

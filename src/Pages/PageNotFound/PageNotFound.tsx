@@ -8,7 +8,7 @@ export const PageNotFound = () => {
 			<div className="pagenot">
 				<img src={images.logo} alt="wrong" />
 				<h1>Trang không tồn tại</h1>
-				<button className="button">
+				<button className="buttonnotfound">
 					<Link to="/">Tải lại trang</Link>
 				</button>
 			</div>
